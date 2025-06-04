@@ -1,0 +1,11 @@
+id,name,power,hours_per_day
+1,Refrigerator,150,24
+2,Television,100,5
+3,Laptop,65,8
+4,Washing Machine,500,1
+5,Microwave,1200,0.5
+6,Ceiling Fan,75,10
+7,Air Conditioner,1500,6
+8,Light Bulb,10,6
+9,Toaster,800,0.25
+10,Water Heater,3000,1
