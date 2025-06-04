@@ -1,5 +1,3 @@
-# Klasy Device, dane w CSV, analiza przez reduce, asercje na limity,
-# zapis wyników do plików.
 import csv
 from functools import reduce
 
@@ -47,7 +45,3 @@ class Device:
 
     def calculate_price(self):
         return round(self.calculate_energy() * 1.52, 2)
-
-energy_manager = EnergyManager()
-energy_manager.load_from_csv('devices.csv')
-energy_manager.save_to_csv('devices_output.csv')
