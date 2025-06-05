@@ -2,9 +2,9 @@ import csv
 from functools import reduce
 
 class EnergyManager:
-    def __init__(self):
+    def __init__(self, price):
         self.devices = []
-        self.price = 1.52
+        self.price = price
         
     def add_device(self, name, power, hours_per_day):
         self.devices.append(Device(name, power, hours_per_day))
@@ -43,5 +43,5 @@ class Device:
     def calculate_energy(self):
         return self.power * self.hours_per_day / 1000
 
-    def calculate_price(self):
-        return round(self.calculate_energy() * 1.52, 2)
+    def calculate_price(self, price):
+        return round(self.calculate_energy() * price, 2)
