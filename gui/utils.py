@@ -2,14 +2,14 @@ import os
 from tkinter import filedialog
 
 def show_load_file_window(energy_manager, table):
-    filepath = filedialog.askopenfilename(initialdir="data", filetypes=[("CSV files", "*.csv")])
+    filepath = filedialog.askopenfilename(initialdir="data", initialfile="devices.csv", filetypes=[("CSV files", "*.csv")])
     if filepath:
         energy_manager.load_from_csv(filepath)
         reload_table(energy_manager, table)
 
 def show_save_file_window(energy_manager):
     os.makedirs("output", exist_ok=True)
-    filepath = filedialog.asksaveasfilename(initialdir="output", filetypes=[("CSV files", "*.csv")])
+    filepath = filedialog.asksaveasfilename(initialdir="output", initialfile="devices_output.csv", filetypes=[("CSV files", "*.csv")])
     if filepath:
         energy_manager.save_to_csv(filepath)    
 
