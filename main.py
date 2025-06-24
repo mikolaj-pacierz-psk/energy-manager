@@ -1,47 +1,51 @@
-import csv
-from functools import reduce
+import tkinter as tk
+import tkinter.ttk as ttk
 
-class EnergyManager:
-    def __init__(self, price):
-        self.devices = []
-        self.price = price
-        
-    def add_device(self, name, power, hours_per_day):
-        self.devices.append(Device(name, power, hours_per_day))
+from model.energy_manager import EnergyManager
+from gui.add_window import show_add_device_window
+from gui.utils import on_price_change, show_load_file_window, show_save_file_window
+
+def main():
+    energy_manager = EnergyManager(1.52)
     
-    def load_from_csv(self, filename):
-        with open(filename, 'r', newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                self.devices.append(Device(row['name'], row['power'], row['hours_per_day']))
+    root = tk.Tk()
+    root.title("Energy Manager")
+    root.geometry("1920x1080")
+    
+    table = ttk.Treeview(root)
+    table['columns'] = ('Name', 'Power', 'Hours', 'Total Energy', 'Price')
+    table.column('#0', stretch=tk.NO)
+    table.column('Name', anchor=tk.W, width=100)
+    table.column('Power', anchor=tk.W, width=100)
+    table.column('Hours', anchor=tk.W, width=100)
+    table.column('Total Energy', anchor=tk.W, width=100)
+    table.column('Price', anchor=tk.W, width=100)
+    table.heading('#0', text='', anchor=tk.W)
+    table.heading('Name', text='Name', anchor=tk.W)
+    table.heading('Power', text='Power (W)', anchor=tk.W)
+    table.heading('Hours', text='Hours', anchor=tk.W)
+    table.heading('Total Energy', text='Total Energy (kWh)', anchor=tk.W)
+    table.heading('Price', text='Price (PLN)', anchor=tk.W)
+    table.tag_configure('oddrow', background='#E8E8E8')
+    table.tag_configure('evenrow', background='#FFFFFF')
+    
+    price_label = tk.Label(root, text="Price per kWh")
+    price_var = tk.StringVar()
+    price_var.set("1.52")
+    price_var.trace_add('write', lambda *args: on_price_change(energy_manager, price_var, table))
+    price = tk.Entry(root, textvariable=price_var, width=20)
+    
+    add_device_button = ttk.Button(root, text="Add Device", command=lambda: show_add_device_window(energy_manager, table))
+    load_file_button = ttk.Button(root, text="Load from CSV", command=lambda: show_load_file_window(energy_manager, table))
+    save_file_button = ttk.Button(root, text="Save to CSV", command=lambda: show_save_file_window(energy_manager))
+    
+    price_label.pack()
+    price.pack()
+    add_device_button.pack()
+    load_file_button.pack()
+    save_file_button.pack()
+    table.pack(expand=True, fill=tk.BOTH)
+    root.mainloop()
 
-    def save_to_csv(self, filename):
-        with open(filename, 'w', newline='') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=['id', 'name', 'power', 'hours_per_day', 'total_energy', 'price'])
-            writer.writeheader()
-            for device in self.devices:
-                writer.writerow({
-                    'id': self.devices.index(device) + 1,
-                    'name': device.name,
-                    'power': device.power,
-                    'hours_per_day': device.hours_per_day,
-                    'total_energy': device.calculate_energy(),
-                    'price': device.calculate_price()
-                })
-                
-    def calculate_total_energy(self):
-        return reduce(lambda energy, device: energy + device.calculate_energy(), self.devices, 0)
-
-class Device:
-    def __init__(self, name, power, hours_per_day):
-        self.name = name
-        self.power = float(power)
-        self.hours_per_day = float(hours_per_day)
-        assert 0 <= self.hours_per_day <= 24, f"{name}: hours_per_day must be a float value between 0 and 24"
-        assert 0 < self.power <= 10000, f"{name}: power must be a float value between 0 and 10000"
-
-    def calculate_energy(self):
-        return self.power * self.hours_per_day / 1000
-
-    def calculate_price(self, price):
-        return round(self.calculate_energy() * price, 2)
+if __name__ == "__main__":
+    main()
