@@ -32,4 +32,7 @@ class EnergyManager:
                 
     def calculate_total_energy(self):
         return reduce(lambda energy, device: energy + device.calculate_energy(), self.devices, 0)
+    
+    def calculate_total_price(self):
+        return reduce(lambda price, device: price + device.calculate_price(self.price), self.devices, 0)
 

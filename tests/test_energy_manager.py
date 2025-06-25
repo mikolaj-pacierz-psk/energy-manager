@@ -24,6 +24,11 @@ class TestEnergyManager(unittest.TestCase):
         self.energy_manager.add_device("Fridge", 100, 10)  
         self.energy_manager.add_device("TV", 200, 5)       
         self.assertEqual(self.energy_manager.calculate_total_energy(), 2)
+        
+    def test_calculate_total_price(self):
+        self.energy_manager.add_device("Fridge", 100, 10)
+        self.energy_manager.add_device("TV", 200, 5)
+        self.assertEqual(self.energy_manager.calculate_total_price(), 3.04)
 
 if __name__ == '__main__':
     unittest.main()

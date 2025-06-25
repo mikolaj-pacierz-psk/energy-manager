@@ -2,9 +2,10 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter import messagebox
 
-from gui.utils import reload_table
+from gui.utils import reload_table, reload_total_energy_label, reload_total_price_label
 
-def show_add_device_window(energy_manager, table):
+
+def show_add_device_window(energy_manager, table, total_energy_label, total_price_label):
     window = tk.Toplevel()
     window.geometry("360x250")
     window.title("Add Device")
@@ -41,6 +42,8 @@ def show_add_device_window(energy_manager, table):
             hours = hours_entry.get()
             energy_manager.add_device(name, power, hours)
             reload_table(energy_manager, table)
+            reload_total_energy_label(energy_manager, total_energy_label)
+            reload_total_price_label(energy_manager, total_price_label)
             window.destroy()
         except AssertionError as e:
             messagebox.showerror("Error", str(e), parent=window)
