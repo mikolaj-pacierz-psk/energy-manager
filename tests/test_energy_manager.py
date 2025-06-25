@@ -1,6 +1,6 @@
 import os
 import unittest
-from model.energy_manager import EnergyManager
+from models.energy_manager import EnergyManager
 
 
 class TestEnergyManager(unittest.TestCase):

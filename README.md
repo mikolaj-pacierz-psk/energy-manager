@@ -9,13 +9,13 @@
 - Windows
    ```
    git clone https://github.com/mikolaj-pacierz-psk/energy_manager.git
-   cd energy_manager/dist
+   cd energy_manager
    app.exe
    ```
 
 - Linux
    ```
    git clone https://github.com/mikolaj-pacierz-psk/energy_manager.git
-   cd energy_manager/dist
+   cd energy_manager
    ./app
    ```

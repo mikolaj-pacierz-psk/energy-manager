@@ -3,7 +3,7 @@ import tkinter.ttk as ttk
 
 from charts.energy_chart import show_energy_chart
 from charts.price_chart import show_price_chart
-from model.energy_manager import EnergyManager
+from models.energy_manager import EnergyManager
 from gui.add_window import show_add_device_window
 from gui.utils import on_price_change, show_load_file_window, show_save_file_window
 
