@@ -53,4 +53,4 @@ def show_add_device_window(energy_manager, table, total_energy_label, total_pric
     confirm_button = ttk.Button(window, text="Add", command=on_add)
     confirm_button.grid(column=1, row=3, sticky=tk.E, padx=5, pady=5)
 
-    window.mainloop()   
+    window.mainloop()
