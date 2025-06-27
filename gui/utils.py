@@ -54,4 +54,9 @@ def on_price_change(energy_manager, price_var, table, total_price_label):
         reload_table(energy_manager, table)
         reload_total_price_label(energy_manager, total_price_label)
     except ValueError:
-        return None
+       # Jeśli użytkownik usunie zawartość pola (np. backspacem), próba konwersji pustego ciągu na float spowoduje ValueError. 
+       # W takim przypadku nic nie robimy i kończymy funkcję.
+        return None   
+   
+        
+

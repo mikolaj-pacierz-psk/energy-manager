@@ -1,6 +1,11 @@
 # Energy Manager
 
-## Wymagania
+## Cel aplikacji
+- Celem aplikacji była możliwość zarządzania zużyciem energii w domu,
+ poprzez obliczanie zużycia energii przez urządzenia i obliczanie ceny każdego urządzenia 
+
+
+## Technologie
 
 - Python 3.11
 - pip 25.0.1
@@ -25,3 +30,6 @@
    pip install -r requirements.txt
    python main.py
    ```
+  
+## Autorzy:
+- Mikołaj Pacierz
